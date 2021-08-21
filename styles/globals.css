@@ -2,15 +2,59 @@ html,
 body {
   padding: 0;
   margin: 0;
+  width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+#parent{
+  border: solid rgba(0, 0, 0, 0.11);
+  border-width: 0.1px;
+  border-radius: 10px;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-* {
-  box-sizing: border-box;
+.inputt {
+  width: 40px !important;
+}
+.textfont {
+  font-size: calc(1.1vw + 8px);
+}
+.headfont {
+  font-size: calc(1vw + 15px);
+}
+.headfontfoodcard {
+  font-size: 18px;
+}
+.textfontfoodcard {
+  font-size: 15px;
+}
+
+#parentinfoodcard {
+  border: solid 1px rgba(10, 10, 10, 0.233);
+}
+.border{
+  border: solid rgba(0, 0, 0, 0.11);
+  border-width: 0.1px;
+  border-radius: 10px;
+ 
+}
+
+
+@media (min-width: 992px) {
+  #factor {
+    float: right;
+    position: absolute;
+    top: 57px;
+    left: 62%;
+  }
+}
+@media (min-width: 390px) {
+  .textfontfoodcard {
+    font-size: 18px;
+  }
+  .headfontfoodcard {
+    font-size: 23px;
+  }
 }
