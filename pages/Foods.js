@@ -1,55 +1,39 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import FoodCard from '../components/FoodCard';
-import { Form, FormControl, Button, FormCheck, Pagination } from "react-bootstrap"
-const food = {
-    id: 1,
-    rate: 4,
-    type: "Italian",
-    name: "MARGARITA",
-    pic: "https://media.istockphoto.com/photos/pepperoni-pizza-on-white-picture-id153985988",
-    price: 15,
-    madeFrom: "ketchap-onion-meat-peperoni",
-    comments: [{ name: 'ahmad', comment: "very bad" }, { name: 'karim', comment: "very good" }],
-};
+import axios from "axios"
+import { motion } from "framer-motion"
+export const transition = { duration: 0.4, ease: [0.5, 0.13, 0.23, 0.6] }
+import Head from 'next/head';
 
-const Foods = () => {
+export const getServerSideProps = async () => {
+
+    const { data } = await axios.get('https://pizzland.herokuapp.com/foods/')
+    return {
+        props: {
+            data
+        }
+    }
+}
+const variant2 = {
+    animate: {
+        transition: {
+            straggerChildren: 0.1
+        }
+    }
+}
+const Foods = ({ data }) => {
     return (
-        <div className=" container-lg ">
-            <div className=" row">
-                <Form className="d-flex  col-12 col-sm-5 col-md-3 mt-3  ">
-                    <Button className=" me-1 btn-dark" >Search</Button>
-                    <FormControl
-                        placeholder="Search for name ..."
-                        className="mr-5  "
-                        aria-label="Search"
-                    />
-                </Form>
-                <select className="form-select mt-3  " style={{ width: '7rem!important' }}>
-                    <option selected value="" >all</option>
-                    <option value="1">sonati</option>
-                    <option value="2">fastfood</option>
+        <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={transition} className=" container-lg ">
+           <Head>
+                <title>Foods</title>
+                <link href="/manifest.json" rel="manifest" />
+            </Head>
+            <div className="row justify-content-center mt-2 mt-lg-5">
+                {data.map(food => <FoodCard key={food._id} food={food} />)}
+            </div>
 
-                </select>
-            </div>
-            <div className="row mt-2 mt-lg-5">
-                <FoodCard food={food} />
-                <FoodCard food={food} />
-                <FoodCard food={food} />
-                <FoodCard food={food} />
-                <FoodCard food={food} />
-                <FoodCard food={food} />
-                <FoodCard food={food} />
-                <FoodCard food={food} />
-            </div>
-            <Pagination className="container mt-2">
-                <Pagination.Item>first</Pagination.Item>
-                <Pagination.Item>1</Pagination.Item>
-                <Pagination.Item>2</Pagination.Item>
-                <Pagination.Item>3</Pagination.Item>
-                <Pagination.Item>last</Pagination.Item>
-            </Pagination>
-        </div>
+        </motion.div>
     )
 }
 

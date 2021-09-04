@@ -1,29 +1,73 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Navbar, Form, Nav, NavDropdown, FormControl, Button } from "react-bootstrap"
-const NavBar = () => {
+import { Navbar, Form, Nav, NavDropdown, FormControl, Button, Container } from "react-bootstrap"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { IoMdClose, IoMdReorder } from "react-icons/io"
+import { myContext } from './Store';
+import brand from "../assets/pictures/android-36x36.png"
+
+const NavBrandPic = React.memo(() => {
     return (
-        <div>
-            <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll">
-                    <Nav
-                        className="mr-auto my-2 my-lg-0 "
-                        style={{ maxHeight: '100px' }}
-                        navbarScroll
-                    >
-                        <Nav.Link href="#action1">Home</Nav.Link>
-                        <Nav.Link href="#action2">Link</Nav.Link>
-                      
-                        <Nav.Link href="#" disabled>
-                            Link
-                        </Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-        </div>
+        <Navbar.Brand className=" position-absolute brand "><Link href="/"><a className=" position-absolute brand text-decoration-none text-dark"><img src={brand.src} /></a></Link></Navbar.Brand>
     )
-}
+})
+
+const InnerNav = React.memo(({ isOpen, setIsOpen }) => {
+    const router = useRouter()
+    const width = (typeof window !== "undefined") ? window.innerWidth : false
+
+
+    const changeIsOpen = () => {
+        if (width < 992) {
+            setIsOpen(!isOpen)
+        }
+    }
+    const logoutfunction = () => {
+        localStorage.setItem("user", JSON.stringify({}))
+        localStorage.setItem("cart", JSON.stringify([]))
+        changeIsOpen()
+        router.push('/')
+    }
+    return (
+        <>
+            <Navbar.Toggle onClick={() => setIsOpen(!isOpen)} style={{ border: 'none!important' }} className=" tggl ">{isOpen ? <IoMdClose /> : <IoMdReorder />}</Navbar.Toggle>
+            <Navbar.Collapse className=" accordion-collapse" >
+                <Nav className="me-auto ms-2">
+                    <Link href="/Foods"><a onClick={changeIsOpen} className=" nav-link link-dark">Foods</a></Link>
+                    <Link href="/Register"><a onClick={changeIsOpen} className=" nav-link link-dark">Sign Up</a></Link>
+                    <NavDropdown title="Account" id="basic-nav-dropdown">
+                        <Link href="/Login"><a onClick={changeIsOpen} className="  dropdown-item ">Login</a></Link>
+                        <Link href="/Account"><a onClick={changeIsOpen} className="  dropdown-item">Edit Account</a></Link>
+                        <a onClick={logoutfunction} className="  dropdown-item text-danger">LogOut</a>
+                    </NavDropdown>
+                </Nav>
+            </Navbar.Collapse>
+            <NavBrandPic />
+        </>)
+})
+
+const InnerNavTotal = React.memo(({isOpen,setIsOpen,cartLength}) => {
+   
+    return (
+        <Navbar bg="none" expand="lg" expanded={isOpen}>
+            <InnerNav isOpen={isOpen} setIsOpen={setIsOpen} />
+            <Link href="/Cart"><a onClick={() => setIsOpen(false)} className=" position-absolute  lnk  text-decoration-none text-dark">{cartLength}</a></Link>
+        </Navbar>
+    )
+})
+
+const NavBar = React.memo(() => {
+    const router = useRouter()
+    const [cart, setCart] = useContext(myContext)
+    const [isOpen, setIsOpen] = useState(false)
+
+   
+    return (
+        <>
+           <InnerNavTotal isOpen={isOpen} setIsOpen={setIsOpen} cartLength={cart.length} />
+        </>
+    )
+})
 
 export default NavBar

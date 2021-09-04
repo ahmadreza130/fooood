@@ -1,13 +1,30 @@
-import React ,{ createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 
-const Store = ({ children }) => {
-    const [cart, setCart] = useState([])
-    const myContext = createContext()
+export const myContext = createContext()
+
+
+const Store = React.memo(({ children }) => {
+    let x = []
+   
+    if (typeof window !== 'undefined') {
+        x = JSON.parse(localStorage.getItem('cart'));
+      
+
+    }
+    const [cart, setCart] = useState(x || [])
+    
+    useEffect(async() => {
+        localStorage.setItem("cart", JSON.stringify(cart))
+    }, [cart])
+
+  
     return (
-        <myContext.Provider value={[cart, setCart]}>
-            {children}
-        </myContext.Provider>
+      
+            <myContext.Provider value={[cart, setCart]}>
+                {children}
+            </myContext.Provider>
+     
     )
-}
+})
 
 export default Store
