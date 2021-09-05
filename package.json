@@ -6,13 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-on-netlify"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
     "framer-motion": "^4.1.17",
     "next": "11.1.0",
+    "next-on-netlify": "^3.0.1",
     "next-pwa": "^5.3.1",
     "react": "17.0.2",
     "react-bootstrap": "^1.6.1",
