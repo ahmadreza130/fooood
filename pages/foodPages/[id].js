@@ -62,9 +62,7 @@ const FoodPage = ({ data }) => {
             </motion.div>
             <hr style={{ color: "black" }} className=" w-50 container " />
             <div className=" mt-5" >
-
                 {data.comments.map(c => <CommentsCard key={c.commenter} comment={c} />)}
-
             </div>
             <TextArea dataId={data._id} />
 

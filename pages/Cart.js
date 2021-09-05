@@ -2,8 +2,8 @@ import React, { useState, useContext } from 'react'
 import { Card, Button } from 'react-bootstrap';
 import CartCard from '../components/CartCard';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { myContext} from "../components/Store"
-import { userContext} from "../components/StoreForUser"
+import { myContext } from "../components/Store"
+import { userContext } from "../components/StoreForUser"
 import axios from "axios"
 import { motion } from "framer-motion"
 import { transition } from "./Foods"
@@ -18,19 +18,24 @@ const Cart = () => {
     orders.map(o => { totalPrice = totalPrice + (o.food.price) * (o.count) })
 
     const orderReq = async () => {
-        try {
 
-            const res = await axios.put(`https://pizzland.herokuapp.com/user/addToCurrunOrder/${user._id}`, {
-                order: orders
-            }, { headers: { token: user.accessToken } })
-            alert(res.data)
-            setOrders([])
-            setInterval(() => {
-                setUser({ ...user, curruntOrder: [...user.curruntOrder, orders] })
-            });
+        if (user.name) {
+            try {
 
-        } catch (err) {
-            console.log(err)
+                const res = await axios.put(`https://pizzland.herokuapp.com/user/addToCurrunOrder/${user._id}`, {
+                    order: orders
+                }, { headers: { token: user.accessToken } })
+                alert(res.data)
+                setOrders([])
+                setInterval(() => {
+                    setUser({ ...user, curruntOrder: [...user.curruntOrder, orders] })
+                });
+
+            } catch (err) {
+                console.log(err)
+            }
+        } else {
+            alert('please log in for order food')
         }
     }
     return (

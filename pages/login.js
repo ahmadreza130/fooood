@@ -27,7 +27,6 @@ const Login = () => {
                 setUser(res.data)
                 router.push("/")
 
-
             } catch (err) {
                 alert("wrong email or password")
             }

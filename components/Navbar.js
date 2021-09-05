@@ -6,6 +6,7 @@ import { useRouter } from "next/router"
 import { IoMdClose, IoMdReorder } from "react-icons/io"
 import { myContext } from './Store';
 import brand from "../assets/pictures/android-36x36.png"
+import { MdLocalHospital } from 'react-icons/md';
 
 const NavBrandPic = React.memo(() => {
     return (
@@ -16,7 +17,7 @@ const NavBrandPic = React.memo(() => {
 const InnerNav = React.memo(({ isOpen, setIsOpen }) => {
     const router = useRouter()
     const width = (typeof window !== "undefined") ? window.innerWidth : false
-
+    const user = (typeof window !== "undefined") && JSON.parse(localStorage.getItem("user"))
 
     const changeIsOpen = () => {
         if (width < 992) {
@@ -38,7 +39,8 @@ const InnerNav = React.memo(({ isOpen, setIsOpen }) => {
                     <Link href="/Register"><a onClick={changeIsOpen} className=" nav-link link-dark">Sign Up</a></Link>
                     <NavDropdown title="Account" id="basic-nav-dropdown">
                         <Link href="/Login"><a onClick={changeIsOpen} className="  dropdown-item ">Login</a></Link>
-                        <Link href="/Account"><a onClick={changeIsOpen} className="  dropdown-item">Edit Account</a></Link>
+                        <Link href="/Account"><a onClick={changeIsOpen}
+                            className={` dropdown-item ${!user.name&&'disabled'}`}>Edit Account</a></Link>
                         <a onClick={logoutfunction} className="  dropdown-item text-danger">LogOut</a>
                     </NavDropdown>
                 </Nav>
@@ -47,8 +49,8 @@ const InnerNav = React.memo(({ isOpen, setIsOpen }) => {
         </>)
 })
 
-const InnerNavTotal = React.memo(({isOpen,setIsOpen,cartLength}) => {
-   
+const InnerNavTotal = React.memo(({ isOpen, setIsOpen, cartLength }) => {
+
     return (
         <Navbar bg="none" expand="lg" expanded={isOpen}>
             <InnerNav isOpen={isOpen} setIsOpen={setIsOpen} />
@@ -62,10 +64,10 @@ const NavBar = React.memo(() => {
     const [cart, setCart] = useContext(myContext)
     const [isOpen, setIsOpen] = useState(false)
 
-   
+
     return (
         <>
-           <InnerNavTotal isOpen={isOpen} setIsOpen={setIsOpen} cartLength={cart.length} />
+            <InnerNavTotal isOpen={isOpen} setIsOpen={setIsOpen} cartLength={cart.length} />
         </>
     )
 })
