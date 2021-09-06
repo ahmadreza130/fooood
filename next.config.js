@@ -10,6 +10,5 @@ module.exports = withPWA({
   devIndicators: {
     buildActivity: false
   },
-  target: 'serverless',
-  distDir: 'out'
+  target: 'serverless'
 })
