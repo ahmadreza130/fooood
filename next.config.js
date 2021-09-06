@@ -10,5 +10,5 @@ module.exports = withPWA({
   devIndicators: {
     buildActivity: false
   },
-  target: 'serverless'
+  target: "experimental-serverless-trace"
 })
