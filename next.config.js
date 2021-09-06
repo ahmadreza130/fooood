@@ -9,6 +9,5 @@ module.exports = withPWA({
   reactStrictMode: true,
   devIndicators: {
     buildActivity: false
-  },
-  target: "experimental-serverless-trace"
+  }
 })
