@@ -8,13 +8,14 @@ import { useRouter } from "next/router"
 import { motion } from "framer-motion"
 import { transition } from '../components/FoodCard';
 import Head from "next/head"
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
 
 const emailReg = /[A-Za-z0-9_\.\-]+[@][a-z]+[\.][a-z]/
 const Register = () => {
     const router = useRouter()
     const [passScore, setPassScore] = useState(0)
     const [registered, setRegistered] = useState(false)
-
+    const [isPass, setIsPass] = useState(true)
     const [registerForm, setRegisterForm] = useState({
         name: "",
         email: "",
@@ -76,10 +77,14 @@ const Register = () => {
                 <br />
                 <FormControl className=" shadow-none inputfocus" type="email" onChange={e => { setRegisterForm({ ...registerForm, email: e.target.value }) }} placeholder="Email..." />
                 <br />
-                <FormControl className=" shadow-none inputfocus" onChange={e => { setRegisterForm({ ...registerForm, passWord: e.target.value }) }} type="password" placeholder="Password" />
+                <FormControl className=" shadow-none inputfocus" onChange={e => { setRegisterForm({ ...registerForm, passWord: e.target.value }) }} type={isPass ? "password" : "text"} placeholder="Password" />
+                <Button className=" bg-white m-0 p-0 border-0 shadow-none text-dark" onClick={() => setIsPass(!isPass)}>
+                    {isPass ? <AiFillEyeInvisible className="eyesize" /> : <AiFillEye className="eyesize" />}
+                </Button>
                 <PasswordStrengthBar onChangeScore={s => setPassScore(s)} password={registerForm.passWord} />
 
-                <FormControl className=" shadow-none inputfocus" onChange={e => { setRegisterForm({ ...registerForm, passWord2: e.target.value }) }} type="password" placeholder="Password confirmation" />
+                <FormControl className=" shadow-none inputfocus" onChange={e => { setRegisterForm({ ...registerForm, passWord2: e.target.value }) }} type={isPass ? "password" : "text"} placeholder="Password confirmation" />
+
                 <br />
                 <FormControl className=" shadow-none inputfocus" onKeyPress={EnterPress}
                     onChange={e => { setRegisterForm({ ...registerForm, address: e.target.value }) }} type="text" placeholder="Address" />
