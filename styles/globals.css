@@ -1,3 +1,6 @@
+
+
+
 html,
 body {
   padding: 0;
@@ -71,13 +74,13 @@ body {
 .pic {
   width: 480px;
   height: 630px;
-  box-shadow: #21212d;
+  box-shadow: rgb(41, 41, 65);
   filter: brightness(0.6);
 }
 .picloc {
   margin-left: 20vw;
   margin-top: 50px;
-  box-shadow: #21212d;
+  box-shadow:rgb(41, 41, 65);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -99,21 +102,17 @@ body {
   left: 87%;
   top: 12px;
 }
-.changeinputs{
+.changeinputs {
   margin-left: 20vw;
 }
 @media (max-width: 1024px) {
   .picloc {
     margin-left: 5vw;
     margin-top: 50px;
-    box-shadow: #21212d;
-    overflow: hidden;
   }
   .pic {
     width: 450px;
     height: 600px;
-    box-shadow: #21212d;
-    filter: brightness(0.6);
   }
   .welcome {
     position: absolute;
@@ -238,10 +237,8 @@ body {
   background-color: rgba(14, 13, 13, 0.342);
   border-radius: 10px;
 }
-.eyesize{
-   margin: 0;
-   padding: 0;
-   font-size: 20px;
-  
+.eyesize {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
 }
-
