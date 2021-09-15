@@ -4,7 +4,7 @@ import axios from "axios"
 const TextArea = ({dataId}) => {
     const [textarea, setTextarea] = useState("")
    
-    const user = typeof window !== 'undefined' && JSON.parse(localStorage.getItem("user"))
+    const user = (typeof window !== 'undefined') && JSON.parse(localStorage.getItem("user"))
 
     const saveText = async (e) => {
         if (e.key === "Enter") {

@@ -7,9 +7,9 @@ const StoreForUser = React.memo(({ children }) => {
 
     let y = []
     if (typeof window !== 'undefined') {
-        y = JSON.parse(localStorage.getItem('user'));
+        y = JSON.parse(localStorage.getItem('user'))
     }
-    const [user, setUser] = useState(y || {})
+    const [user, setUser] = useState(y !== "undefined" && y || {})
     useEffect(async () => {
         localStorage.setItem("user", JSON.stringify(user))
 
