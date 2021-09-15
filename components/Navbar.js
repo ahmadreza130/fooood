@@ -39,7 +39,7 @@ const InnerNav = React.memo(({ isOpen, setIsOpen }) => {
                     <Link href="/register"><a onClick={changeIsOpen} className=" nav-link link-dark">Sign Up</a></Link>
                     <NavDropdown title="Account" id="basic-nav-dropdown">
                         <Link href="/login"><a onClick={changeIsOpen} className="  dropdown-item ">Login</a></Link>
-                        <Link href="/account"><a onClick={changeIsOpen}
+                        <Link href="/Account"><a onClick={changeIsOpen}
                             className={` dropdown-item ${!user?.name&&'disabled'}`}>Account</a></Link>
                         <a onClick={logoutfunction} className="  dropdown-item text-danger">LogOut</a>
                     </NavDropdown>

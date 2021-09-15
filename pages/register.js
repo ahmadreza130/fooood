@@ -33,7 +33,7 @@ const Register = () => {
                     password: `${registerForm.passWord}`,
                     address: `${registerForm.address}`
                 })
-                router.push('/Login')
+                router.push('/login')
 
             } catch (err) {
                 alert("this email is already registered")
