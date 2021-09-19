@@ -3,18 +3,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Card } from "react-bootstrap";
 import { ImCross } from "react-icons/im"
 import axios from 'axios';
-
+import { useAlert } from 'react-alert';
 const user = (typeof window !== "undefined") && JSON.parse(localStorage.getItem("user"))
 
 
 const CommentsCard = React.memo(({ comment, filmid }) => {
+    const Alert=useAlert()
     const sendRemoveReq = async () => {
         try {
-            const res = await axios.delete(`https://pizzland.herokuapp.com/foods/deleteComment/${filmid}`, { headers: { token: user.accessToken } })
+           await axios.delete(`https://pizzland.herokuapp.com/foods/deleteComment/${filmid}`,{commenter:`${comment.commenter}`}, { headers: { token: user.accessToken } })
             
             typeof window !== "undefined" && window.location.reload()
         } catch {
-            alert("something went wrong")
+            Alert.error("something went wrong")
         }
     }
     return (
