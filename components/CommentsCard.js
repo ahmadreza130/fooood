@@ -11,7 +11,8 @@ const CommentsCard = React.memo(({ comment, filmid }) => {
     const Alert=useAlert()
     const sendRemoveReq = async () => {
         try {
-           await axios.delete(`https://pizzland.herokuapp.com/foods/deleteComment/${filmid}`,{commenter:`${comment.commenter}`}, { headers: { token: user.accessToken } })
+           await axios.delete(`https://pizzland.herokuapp.com/foods/deleteComment/${filmid}`,
+           {commenter:`${comment.commenter}`}, { headers: { token: user.accessToken } })
             
             typeof window !== "undefined" && window.location.reload()
         } catch {
@@ -22,7 +23,7 @@ const CommentsCard = React.memo(({ comment, filmid }) => {
         <Card className=" col-md-6 my-2 rounded container col-lg-4   col-sm-12 shadow-sm ">
             <Card.Text className=" text-end">
                 <span title="delete comment">
-                    {comment.commenter === user._id && <ImCross className="deleteIcon " onClick={sendRemoveReq} />}
+                    {comment.commenter === user._id||user.isAdmin && <ImCross className="deleteIcon " onClick={sendRemoveReq} />}
                 </span>
             </Card.Text>
 
