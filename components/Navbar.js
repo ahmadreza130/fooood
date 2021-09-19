@@ -6,7 +6,6 @@ import { useRouter } from "next/router"
 import { IoMdClose, IoMdReorder } from "react-icons/io"
 import { myContext } from './Store';
 import brand from "../assets/pictures/android-36x36.png"
-import { MdLocalHospital } from 'react-icons/md';
 
 const NavBrandPic = React.memo(() => {
     return (

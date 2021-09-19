@@ -9,9 +9,10 @@ import { motion } from "framer-motion"
 import { transition } from '../components/FoodCard';
 import Head from "next/head"
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
-
+import { useAlert } from 'react-alert';
 const emailReg = /[A-Za-z0-9_\.\-]+[@][a-z]+[\.][a-z]/
 const Register = () => {
+    const Alert = useAlert()
     const router = useRouter()
     const [passScore, setPassScore] = useState(0)
     const [registered, setRegistered] = useState(false)
@@ -33,23 +34,24 @@ const Register = () => {
                     password: `${registerForm.passWord}`,
                     address: `${registerForm.address}`
                 })
+                Alert.success("logged in!")
                 router.push('/login')
 
-            } catch (err) {
-                alert("this email is already registered")
+            } catch  {
+                Alert.error("this email is already registered")
             }
 
         } else {
-            if (!registerForm.name || !registerForm.email || !registerForm.passWord.length || !registerForm.address) { alert("fill all fields") } else {
+            if (!registerForm.name || !registerForm.email || !registerForm.passWord.length || !registerForm.address) { Alert.error("fill all fields") } else {
                 if (!emailReg.test(registerForm.email)) {
-                    alert("please write a correct email")
+                    Alert.error("please write a correct email")
                 } else {
                     if (passScore <= 1) {
-                        alert("weak passWord")
+                        Alert.error("weak passWord")
                     } else {
 
                         if (registerForm.passWord !== registerForm.passWord2) {
-                            alert("passWord confirmation in not correct")
+                            Alert.error("passWord confirmation in not correct")
                         }
                     }
                 }

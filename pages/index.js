@@ -28,7 +28,7 @@ const variant3 = {
 export default function Home() {
   return (
 
-    <motion.div exit={{ opacity: 0 }}  initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+    <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <Head>
         <title>Home</title>
       </Head>

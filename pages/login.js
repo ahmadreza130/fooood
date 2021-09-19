@@ -8,8 +8,10 @@ import { motion } from "framer-motion"
 import { transition } from "./Foods"
 import Link from "next/link"
 import Head from "next/head"
+import { useAlert } from 'react-alert';
 
 const Login = () => {
+    const Alert=useAlert()
     const router = useRouter()
     const [list, setList] = useState({
         email: "",
@@ -28,10 +30,10 @@ const Login = () => {
                 router.push("/")
 
             } catch (err) {
-                alert("wrong email or password")
+                Alert.error("wrong email or password")
             }
         } else {
-            alert('fill all boxes')
+            Alert.error('fill all boxes')
         }
     }
 

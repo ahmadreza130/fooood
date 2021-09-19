@@ -1,15 +1,34 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
+import { ImCross } from "react-icons/im"
+import axios from 'axios';
 
-const CommentsCard = React.memo(({ comment }) => {
+const user = (typeof window !== "undefined") && JSON.parse(localStorage.getItem("user"))
+
+
+const CommentsCard = React.memo(({ comment, filmid }) => {
+    const sendRemoveReq = async () => {
+        try {
+            const res = await axios.delete(`https://pizzland.herokuapp.com/foods/deleteComment/${filmid}`, { headers: { token: user.accessToken } })
+            
+            typeof window !== "undefined" && window.location.reload()
+        } catch {
+            alert("something went wrong")
+        }
+    }
     return (
-        <Card className=" col-md-6 my-2 rounded container col-lg-4   col-sm-12 ">
-            <Card.Title> {comment.name}:</Card.Title>
-            <Card.Body>
-                <Card.Text className=" ms-5">{comment.comment}</Card.Text>
-            </Card.Body>
-            <Card.Footer className=" text-muted">At:{comment.h.month}/{comment.h.day}/{comment.h.year}-{comment.h.hour}:{comment.h.min}</Card.Footer>
+        <Card className=" col-md-6 my-2 rounded container col-lg-4   col-sm-12 shadow-sm ">
+            <Card.Text className=" text-end">
+                <span title="delete comment">
+                    {comment.commenter === user._id && <ImCross className="deleteIcon " onClick={sendRemoveReq} />}
+                </span>
+            </Card.Text>
+
+
+            <Card.Title className=" text-center"> {comment.comment}</Card.Title>
+
+            <Card.Footer className=" text-muted">At:{comment.h.month}/{comment.h.day}/{comment.h.year}-{comment.h.hour}:{comment.h.min} by {comment.name}</Card.Footer>
         </Card>
     )
 })

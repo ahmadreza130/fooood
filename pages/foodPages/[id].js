@@ -11,7 +11,7 @@ import Head from "next/head"
 
 const FoodPage = ({ data }) => {
     const [orders, setOrders] = useContext(myContext)
-
+    const [reRender, setReRender] = useState(false)
     const isOrder = orders.filter(o => o.food?._id === data._id).length
 
     const addToCart = () => {
@@ -62,7 +62,7 @@ const FoodPage = ({ data }) => {
             </motion.div>
             <hr style={{ color: "black" }} className=" w-50 container " />
             <div className=" mt-5" >
-                {data.comments.map(c => <CommentsCard key={c.commenter} comment={c} />)}
+                {data.comments.map(c => <CommentsCard setReRender={setReRender} key={c.commenter} comment={c} filmid={data._id} />)}
             </div>
             <TextArea dataId={data._id} />
 

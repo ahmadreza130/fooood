@@ -6,9 +6,10 @@ import { transition } from '../FoodCard'
 import axios from 'axios'
 import Head from "next/head"
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
-
+import { useAlert } from 'react-alert'
 const Account = () => {
-
+    
+    const Alert = useAlert()
     const [user, setUser] = useContext(userContext)
     const [isPass, setIsPass] = useState(true)
     const [form, setForm] = useState({
@@ -27,14 +28,14 @@ const Account = () => {
                     password: form.passWord,
                     address: form.address
                 }, { headers: { token: user.accessToken } })
-                alert('updated')
+                Alert.success('updated')
                 setUser({ ...user, name: form.name, email: form.email, address: form.address })
             } catch {
-                alert('does not updated')
+                Alert.error('does not updated')
             }
         } else {
             if (form.passWord !== form.passWord2) {
-                alert("wrong password confirmation")
+                Alert.error("wrong password confirmation")
             } else {
                 try {
                     await axios.put(`https://pizzland.herokuapp.com/user/update/${user._id}`, {
@@ -42,10 +43,10 @@ const Account = () => {
                         name: form.name,
                         address: form.address
                     }, { headers: { token: user.accessToken } })
-                    alert('updated')
+                    Alert.success('updated')
                     setUser({ ...user, name: form.name, email: form.email, address: form.address })
                 } catch (err) {
-                    alert('does not updated')
+                    Alert.error('does not updated')
                 }
             }
 
@@ -70,8 +71,8 @@ const Account = () => {
 
 
                 <FormControl value={form.passWord} className="  shadow-none inputfocus" type={isPass ? "password" : "text"} onChange={e => { setForm({ ...form, passWord: e.target.value }) }} placeholder="pass..." />
-                <Button  className=" bg-white m-0 p-0 border-0 shadow-none text-dark" onClick={()=>setIsPass(!isPass)}>
-                    {isPass ? <AiFillEyeInvisible className="eyesize" /> : <AiFillEye className="eyesize"/>}
+                <Button className=" bg-white m-0 p-0 border-0 shadow-none text-dark" onClick={() => setIsPass(!isPass)}>
+                    {isPass ? <AiFillEyeInvisible className="eyesize" /> : <AiFillEye className="eyesize" />}
                 </Button>
 
                 <br />

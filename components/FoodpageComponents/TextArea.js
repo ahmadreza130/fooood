@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css"
 import axios from "axios"
-const TextArea = ({dataId}) => {
+import { useAlert } from "react-alert"
+const TextArea = ({ dataId }) => {
     const [textarea, setTextarea] = useState("")
-   
+ 
+    const Alert = useAlert()
+    
     const user = (typeof window !== 'undefined') && JSON.parse(localStorage.getItem("user"))
 
     const saveText = async (e) => {
@@ -13,9 +16,11 @@ const TextArea = ({dataId}) => {
             } else {
                 try {
                     const res = await axios.put(`https://pizzland.herokuapp.com/foods/comment/${dataId}`, { comment: e.target.value }, { headers: { token: user.accessToken } })
-                    alert(res.data)
+
+                    typeof window !== "undefined" && window.location.reload()
+                    Alert.success("comment added")
                 } catch (err) {
-                    alert(err)
+                    Alert.error("you already have a comment on this food")
                 }
             }
         } else {
