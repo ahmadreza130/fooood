@@ -23,7 +23,7 @@ const CommentsCard = React.memo(({ comment, filmid }) => {
         <Card className=" col-md-6 my-2 rounded container col-lg-4   col-sm-12 shadow-sm ">
             <Card.Text className=" text-end">
                 <span title="delete comment">
-                    {comment.commenter === user._id||user.isAdmin && <ImCross className="deleteIcon " onClick={sendRemoveReq} />}
+                    {(comment.commenter === user._id||user.isAdmin) && <ImCross className="deleteIcon " onClick={sendRemoveReq} />}
                 </span>
             </Card.Text>
 
