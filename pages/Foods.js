@@ -7,6 +7,7 @@ export const transition = { duration: 0.4, ease: [0.5, 0.13, 0.23, 0.6] }
 import Head from 'next/head';
 import { Form, Button, FormControl, Pagination } from "react-bootstrap"
 import SkeletonCard from "../components/SkeletonForFoodCard"
+import { uuid } from 'uuidv4';
 const variant2 = {
     animate: {
         transition: {
@@ -50,7 +51,7 @@ const Foods = () => {
                         {result.map(food => <FoodCard key={food._id} food={food} />)}
                     </div>
                     : <div  className="row justify-content-center mt-2 mt-lg-5">
-                        {skeleton.map(s => <SkeletonCard />)}
+                        {skeleton.map(s => <SkeletonCard key={uuid()} />)}
                         </div>
             }
 
