@@ -35,9 +35,15 @@ const InnerNav = React.memo(({ isOpen, setIsOpen }) => {
             <Navbar.Collapse className=" accordion-collapse" >
                 <Nav className="me-auto ms-2">
                     <Link href="/Foods"><a onClick={changeIsOpen} className=" nav-link link-dark">Foods</a></Link>
+<<<<<<< HEAD
                     <Link href="/register"><a onClick={changeIsOpen} className=" nav-link link-dark">Sign Up</a></Link>
                     <NavDropdown title="Account" id="basic-nav-dropdown">
                         <Link href="/login"><a onClick={changeIsOpen} className="  dropdown-item ">Login</a></Link>
+=======
+                    <Link href="/Register"><a onClick={changeIsOpen} className=" nav-link link-dark">Sign Up</a></Link>
+                    <NavDropdown title="Account" id="basic-nav-dropdown">
+                        <Link href="/Login"><a onClick={changeIsOpen} className="  dropdown-item ">Login</a></Link>
+>>>>>>> 888b0aa4527d92da7ce9c24f7d63c48f32fd577b
                         <Link href="/Account"><a onClick={changeIsOpen}
                             className={` dropdown-item ${!user?.name&&'disabled'}`}>Account</a></Link>
                         <a onClick={logoutfunction} className="  dropdown-item text-danger">LogOut</a>
